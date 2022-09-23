@@ -75,4 +75,4 @@ class Player:
         self.replay = input('Play again? [y/n] ')
 
         if self.replay == 'y':
-            Player()
+            x = 0
