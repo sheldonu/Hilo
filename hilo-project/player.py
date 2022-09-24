@@ -1,4 +1,3 @@
-from card import Card
 import random
 
 
@@ -14,29 +13,34 @@ class Player:
 
     def __init__(self):
 
+        self.is_playing = True
         self.score = 300
         self.value = 0
         self.points = 0
+        self.display_card = random.randint(1, 13)
 
 
     def start_game(self):
         
-        self.display_card = random.randint(1, 13)
-        print(f'The card is: {self.display_card}')
+        while self.is_playing:
 
-        self.get_inputs()
-        self.do_updates()
-        self.do_outputs()
+            print(f'The card is: {self.display_card}')
+
+            self.get_inputs()
+            self.do_updates()
+            self.do_outputs()
     
     
     def get_inputs(self):
 
         self.hol = input('Higher or lower? [h/l] ')
         
-
             
     def do_updates(self):
 
+        if not self.is_playing:
+            return
+        
         self.second_card = random.randint(1, 13)
 
         print(f'Next card was: {self.second_card}')
@@ -68,11 +72,16 @@ class Player:
                 print('oops, same card :/')
                 
 
-
     def do_outputs(self):
+
+        if not self.is_playing:
+            return
         
         print(f'Your score is: {self.score}')
-        self.replay = input('Play again? [y/n] ')
-
-        if self.replay == 'y':
-            x = 0
+        if self.score > 0:
+            replay = input('Play again? [y/n] ')
+            self.display_card = self.second_card
+            self.is_playing = (replay == 'y')
+            
+        else:
+            self.is_playing = False
